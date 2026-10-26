@@ -710,24 +710,24 @@
                 "exec": [
                   "pm.test('status is 201', function () { pm.response.to.have.status(201); });",
                   "",
-                  "const request = pm.response.json().request;",
+                  "const leaveRequest = pm.response.json().request;",
                   "",
                   "pm.test('starts in PENDING with a named approver', function () {",
-                  "  pm.expect(request.status).to.eql('PENDING');",
-                  "  pm.expect(request.currentApproverId).to.be.a('number');",
-                  "  pm.expect(request.currentApproverName).to.be.a('string').and.not.empty;",
+                  "  pm.expect(leaveRequest.status).to.eql('PENDING');",
+                  "  pm.expect(leaveRequest.currentApproverId).to.be.a('number');",
+                  "  pm.expect(leaveRequest.currentApproverName).to.be.a('string').and.not.empty;",
                   "});",
                   "",
                   "pm.test('charges three working days', function () {",
-                  "  pm.expect(request.totalDays).to.eql(3);",
+                  "  pm.expect(leaveRequest.totalDays).to.eql(3);",
                   "});",
                   "",
                   "pm.test('echoes the submitted range', function () {",
-                  "  pm.expect(request.startDate).to.eql(pm.environment.get('leaveStartDate'));",
-                  "  pm.expect(request.endDate).to.eql(pm.environment.get('leaveEndDate'));",
+                  "  pm.expect(leaveRequest.startDate).to.eql(pm.environment.get('leaveStartDate'));",
+                  "  pm.expect(leaveRequest.endDate).to.eql(pm.environment.get('leaveEndDate'));",
                   "});",
                   "",
-                  "pm.environment.set('leaveRequestId', request.id);"
+                  "pm.environment.set('leaveRequestId', leaveRequest.id);"
                 ]
               }
             }
@@ -1014,13 +1014,13 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const request = pm.response.json().request;",
+                  "const leaveRequest = pm.response.json().request;",
                   "pm.test('advanced to MANAGER_APPROVED', function () {",
-                  "  pm.expect(request.status).to.eql('MANAGER_APPROVED');",
+                  "  pm.expect(leaveRequest.status).to.eql('MANAGER_APPROVED');",
                   "});",
                   "",
                   "pm.test('was routed on to People Operations', function () {",
-                  "  pm.expect(request.currentApproverId).to.be.a('number');",
+                  "  pm.expect(leaveRequest.currentApproverId).to.be.a('number');",
                   "});"
                 ]
               }
@@ -1091,11 +1091,11 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const request = pm.response.json().request;",
+                  "const leaveRequest = pm.response.json().request;",
                   "pm.test('reached the terminal APPROVED state', function () {",
-                  "  pm.expect(request.status).to.eql('APPROVED');",
-                  "  pm.expect(request.currentApproverId).to.be.null;",
-                  "  pm.expect(request.decidedAt).to.not.be.null;",
+                  "  pm.expect(leaveRequest.status).to.eql('APPROVED');",
+                  "  pm.expect(leaveRequest.currentApproverId).to.be.null;",
+                  "  pm.expect(leaveRequest.decidedAt).to.not.be.null;",
                   "});"
                 ]
               }
@@ -1340,7 +1340,7 @@
                   "",
                   "const payload = pm.response.json().data;",
                   "pm.test('pinned items come first', function () {",
-                  "  const pinnedIndexes = data",
+                  "  const pinnedIndexes = payload",
                   "    .map(function (a, index) { return a.isPinned ? index : -1; })",
                   "    .filter(function (index) { return index >= 0; });",
                   "  pinnedIndexes.forEach(function (index) {",
