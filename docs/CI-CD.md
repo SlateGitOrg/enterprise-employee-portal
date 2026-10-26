@@ -263,7 +263,7 @@ colour:
 ssh deploy@portal.example.com
 cd /opt/employee-portal
 ./deploy.sh --environment production --host portal.example.com \
-            --user deploy --registry ghcr.io/slategitorg --rollback
+            --user deploy --registry ghcr.io/<owner> --rollback
 ```
 
 Typical time to recover: under 30 seconds.
@@ -274,7 +274,7 @@ previous tag explicitly:
 ```bash
 ./jenkins/scripts/deploy.sh --environment production \
   --host portal.example.com --user deploy \
-  --registry ghcr.io/slategitorg --tag <previous-sha>
+  --registry ghcr.io/<owner> --tag <previous-sha>
 ```
 
 **Database rollback** is the case worth planning for, because it is the one

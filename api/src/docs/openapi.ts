@@ -29,11 +29,6 @@ export const openApiDocument = {
       'HR self-service REST API: authentication, employee directory, leave management with a '
       + 'two-stage approval workflow, weekly timesheets, documents, announcements and an org chart '
       + 'backed by a MySQL recursive CTE.',
-    contact: {
-      name: 'SlateGit',
-      email: 'engineering@slategit.dev',
-      url: 'https://github.com/SlateGitOrg',
-    },
     license: { name: 'MIT' },
   },
   servers: [

@@ -116,7 +116,7 @@ never produces a pushed image.
 ### Option B — Manual multibranch pipeline
 
 1. **New Item → Multibranch Pipeline**, name `employee-portal`.
-2. Branch source: GitHub → `SlateGitOrg/enterprise-employee-portal`.
+2. Branch source: GitHub → `<owner>/enterprise-employee-portal`.
 3. Behaviours: *Discover branches* (exclude those that are also PRs),
    *Discover pull requests from origin* (merge with target), *Clean before
    checkout*.

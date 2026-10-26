@@ -5,14 +5,9 @@
 **HR self-service for the whole company — leave, timesheets, documents and the org chart — with a two-stage approval workflow and a CI/CD pipeline that will not let a broken contract reach production.**
 
 [![Angular](https://img.shields.io/badge/Angular-18-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Node.js](https://img.shields.io/badge/Node.js-22-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
-[![Express](https://img.shields.io/badge/Express-4.21-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com)
 [![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?style=for-the-badge&logo=jenkins&logoColor=white)](https://www.jenkins.io)
-[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com)
-[![Postman](https://img.shields.io/badge/Postman-Newman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://www.postman.com)
-[![CI](https://github.com/SlateGitOrg/enterprise-employee-portal/actions/workflows/ci.yml/badge.svg)](https://github.com/SlateGitOrg/enterprise-employee-portal/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 </div>
@@ -21,7 +16,7 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
 Every company past about fifty people ends up running HR on email and
 spreadsheets. An employee asks their manager for time off in a thread, the
@@ -46,7 +41,7 @@ and where "who approved this?" is a row, not a memory.
 
 ---
 
-## ✨ Feature modules
+## Feature modules
 
 | Module | What it does | Roles with access |
 | --- | --- | --- |
@@ -68,7 +63,7 @@ may call; service-level checks decide *which rows* it may touch.
 
 ---
 
-## 🏗 System architecture
+## System architecture
 
 ![Architecture](docs/architecture.png)
 
@@ -119,7 +114,7 @@ graph TB
 
 ---
 
-## 🧩 Application architecture
+## Application architecture
 
 ```mermaid
 flowchart LR
@@ -164,7 +159,7 @@ only the service knows the actor.
 
 ---
 
-## 🗄 Data model
+## Data model
 
 ```mermaid
 erDiagram
@@ -357,7 +352,7 @@ weekly grid save into an idempotent upsert instead of a read-then-write race.
 
 ---
 
-## 🔄 Leave approval workflow
+## Leave approval workflow
 
 The workflow is a state machine declared as data in
 [`leave.state.ts`](api/src/modules/leave/leave.state.ts), with a transition
@@ -432,7 +427,7 @@ sequenceDiagram
 
 ---
 
-## 🚀 CI/CD pipeline
+## CI/CD pipeline
 
 This is the part of the project worth reading closely. The pipeline is not a
 "run the tests" script — it is a set of gates, each of which can stop a change
@@ -566,7 +561,7 @@ Full walkthrough, branch strategy and rollback procedure: **[docs/CI-CD.md](docs
 
 ---
 
-## 🛠 Tech stack
+## Tech stack
 
 | Layer | Technology | Why |
 | --- | --- | --- |
@@ -589,7 +584,7 @@ Full walkthrough, branch strategy and rollback procedure: **[docs/CI-CD.md](docs
 
 ---
 
-## 📁 Project structure
+## Project structure
 
 ```
 enterprise-employee-portal/
@@ -649,7 +644,7 @@ enterprise-employee-portal/
 
 ---
 
-## 🏁 Getting started
+## Getting started
 
 ### Prerequisites
 
@@ -663,7 +658,7 @@ enterprise-employee-portal/
 ### 1. Configure
 
 ```bash
-git clone https://github.com/SlateGitOrg/enterprise-employee-portal.git
+git clone https://github.com/<your-username>/enterprise-employee-portal.git
 cd enterprise-employee-portal
 cp .env.example .env
 ```
@@ -753,7 +748,7 @@ npm run build:prod      # enforces the bundle budgets
 
 ---
 
-## 📡 API reference
+## API reference
 
 Base URL `http://localhost:4000/api/v1`. Every endpoint except login, refresh
 and the health probes requires `Authorization: Bearer <accessToken>`.
@@ -905,7 +900,7 @@ transition guard says so before anything is written.
 
 ---
 
-## 🧪 API validation with Postman & Newman
+## API validation with Postman & Newman
 
 The [Postman collection](postman/EmployeePortal.postman_collection.json) is the
 executable contract for the API: 39 requests in six ordered folders, roughly
@@ -965,7 +960,7 @@ More detail: [postman/README.md](postman/README.md).
 
 ---
 
-## ✅ Testing
+## Testing
 
 | Layer | Tool | Covers | Command |
 | --- | --- | --- | --- |
@@ -989,7 +984,7 @@ The smoke tests check that what is running is what was built.
 
 ---
 
-## 📝 Engineering notes
+## Engineering notes
 
 A few decisions worth explaining, because they are the ones a reviewer would
 otherwise have to reverse-engineer.
@@ -1088,7 +1083,7 @@ failed, ref 8f1c9a2e" hands you the exact log stream.
 
 ---
 
-## 📦 Deployment
+## Deployment
 
 - **Two images, one tag.** The API and web images are built once per commit and
   tagged with the 12-character commit SHA. The same image is promoted from
@@ -1121,23 +1116,16 @@ failed, ref 8f1c9a2e" hands you the exact log stream.
 
 ---
 
-## 🗺 Roadmap
+## Limitations and roadmap
 
-- [ ] Move refresh tokens to an `httpOnly`, `SameSite=Strict` cookie and keep the access token in memory only
-- [ ] Public-holiday calendar per location, so the working-day count stops treating a bank holiday as chargeable
-- [ ] Email and Slack notifications on submission, approval and rejection, with per-user preferences
-- [ ] Exports: leave liability by team as CSV, timesheet utilisation as XLSX
-- [ ] Redis-backed rate limiting and org-chart caching, for multi-replica deployments
-- [ ] Playwright end-to-end suite covering the full approval journey in a real browser
+Known gaps in the current scope, and the planned follow-ups for each:
 
----
-
-## ⚠️ Limitations
-
-- Refresh tokens are stored client-side (see the roadmap item to move them to an `httpOnly` cookie).
-- Rate limiting and org-chart caching are in-process, so they are per-replica.
-- Leave working-day counts do not yet account for public holidays.
-- Notifications (email/Slack) are not implemented.
+- **Refresh tokens are stored client-side.** Planned: move them to an `httpOnly`, `SameSite=Strict` cookie and keep the access token in memory only.
+- **Rate limiting and org-chart caching are in-process**, so they are per-replica. Planned: Redis-backed implementations for multi-replica deployments.
+- **Leave working-day counts ignore public holidays.** Planned: a per-location holiday calendar.
+- **No notifications.** Planned: email and Slack on submission, approval and rejection, with per-user preferences.
+- **Reporting.** Planned: leave liability by team as CSV and timesheet utilisation as XLSX.
+- **Browser-level tests.** Planned: a Playwright suite covering the full approval journey.
 
 ---
 

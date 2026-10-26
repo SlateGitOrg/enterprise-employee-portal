@@ -7,7 +7,7 @@
  * keeping the job definitions in the repository next to the pipeline they run.
  */
 
-final String REPO = 'SlateGitOrg/enterprise-employee-portal'
+final String REPO = '<owner>/enterprise-employee-portal'
 final String FOLDER = 'employee-portal'
 
 folder(FOLDER) {

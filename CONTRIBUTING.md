@@ -8,7 +8,7 @@ so a change can get from a local branch to production without surprises.
 ## Getting set up
 
 ```bash
-git clone https://github.com/SlateGitOrg/enterprise-employee-portal.git
+git clone https://github.com/<your-username>/enterprise-employee-portal.git
 cd enterprise-employee-portal
 
 cp .env.example .env
@@ -140,6 +140,7 @@ A change is ready when:
 
 ## Reporting a security issue
 
-Please do not open a public issue. Email
-[engineering@slategit.dev](mailto:engineering@slategit.dev) with the
-details and a reproduction, and allow a reasonable window before disclosure.
+Please do not open a public issue. Use GitHub's private vulnerability
+reporting (the repository's **Security** tab, then **Report a vulnerability**)
+with the details and a reproduction, and allow a reasonable window before
+disclosure.

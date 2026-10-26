@@ -46,7 +46,7 @@ pipeline {
   }
 
   environment {
-    REGISTRY        = 'ghcr.io/slategitorg'
+    REGISTRY        = "ghcr.io/${env.REGISTRY_OWNER ?: 'your-org'}"
     API_IMAGE       = "${REGISTRY}/employee-portal-api"
     WEB_IMAGE       = "${REGISTRY}/employee-portal-web"
     // Short SHA is the immutable build identity: it tags the images, labels the
@@ -357,7 +357,7 @@ pipeline {
             --cache-to type=registry,ref=${API_IMAGE}:buildcache,mode=max \
             --label org.opencontainers.image.revision=${GIT_COMMIT} \
             --label org.opencontainers.image.version=${IMAGE_TAG} \
-            --label org.opencontainers.image.source=https://github.com/SlateGitOrg/enterprise-employee-portal \
+            --label org.opencontainers.image.source=${GIT_URL} \
             --tag ${API_IMAGE}:${IMAGE_TAG} \
             --tag ${API_IMAGE}:latest \
             --push api
@@ -565,7 +565,7 @@ pipeline {
 <${env.BUILD_URL}console|Console log>"""
       )
       emailext(
-        to: 'engineering@slategit.dev',
+        to: env.NOTIFY_EMAIL ?: 'team@example.com',
         subject: "[FAILED] ${env.JOB_NAME} #${env.BUILD_NUMBER}",
         body: '''$DEFAULT_CONTENT''',
         attachLog: true,

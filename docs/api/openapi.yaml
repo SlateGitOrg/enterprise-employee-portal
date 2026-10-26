@@ -17,10 +17,6 @@ info:
     employee directory, leave management with a two-stage approval workflow,
     weekly timesheets, a document vault, announcements, and an org chart backed
     by a MySQL 8 recursive CTE.
-  contact:
-    name: SlateGit
-    email: engineering@slategit.dev
-    url: https://github.com/SlateGitOrg
   license:
     name: MIT
 
