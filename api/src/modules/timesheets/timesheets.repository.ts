@@ -145,7 +145,9 @@ export const timesheetsRepository = {
    * every entry into Node and reducing there would move megabytes for a handful
    * of numbers.
    */
-  summary(filters: { from: string; to: string; employeeId?: number; projectId?: number }) {
+  summary(filters: { from: string; to: string; employeeId?: number; projectId?: number }): Promise<
+    Array<{ project_id: number; project_code: string; project_name: string; is_billable: number | boolean; total_hours: number | string; entry_count: number | string }>
+  > {
     const query = db('timesheet_entries as te')
       .select('p.id as project_id', 'p.code as project_code', 'p.name as project_name', 'p.is_billable')
       .sum({ total_hours: 'te.hours' })
@@ -158,7 +160,9 @@ export const timesheetsRepository = {
 
     if (filters.employeeId) query.where('ts.employee_id', filters.employeeId);
     if (filters.projectId) query.where('te.project_id', filters.projectId);
-    return query;
+    return query as unknown as Promise<
+      Array<{ project_id: number; project_code: string; project_name: string; is_billable: number | boolean; total_hours: number | string; entry_count: number | string }>
+    >;
   },
 
   async hoursThisWeek(employeeId: number, weekStart: string): Promise<number> {

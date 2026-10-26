@@ -4,7 +4,7 @@
   "private": true,
   "description": "Enterprise Employee Portal — REST API (Node.js 22, Express 4, TypeScript, MySQL 8)",
   "license": "MIT",
-  "author": "SlateGit <engineering@slategit.dev>",
+  "author": "enterprise-employee-portal contributors",
   "engines": {
     "node": ">=22.0.0",
     "npm": ">=10.0.0"

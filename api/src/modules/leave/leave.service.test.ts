@@ -404,7 +404,7 @@ describe('leaveService.decide', () => {
   });
 
   it('refuses a manager who is outside the reporting line', async () => {
-    repo.findById.mockResolvedValue(requestRow({ current_approver_id: 11 }));
+    repo.findById.mockResolvedValue(requestRow({ current_approver_id: 99 }));
     employees.isInReportingLine.mockResolvedValue(false);
 
     await expect(

@@ -54,7 +54,8 @@ import type { DashboardSummary } from '@core/models';
             </div>
           }
         </div>
-      } @else if (summary(); as data) {
+      } @else {
+       @if (summary(); as data) {
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           @for (kpi of data.kpis; track kpi.key) {
             <div class="rounded-xl border border-surface-border bg-white p-5 shadow-card">
@@ -179,12 +180,13 @@ import type { DashboardSummary } from '@core/models';
             </ul>
           </app-ui-card>
         }
-      } @else {
+       } @else {
         <app-ui-empty-state
           icon="⚠"
           heading="Dashboard unavailable"
           message="The summary could not be loaded. Try reloading the page."
         />
+      }
       }
     </div>
   `,

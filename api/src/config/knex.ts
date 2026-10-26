@@ -20,7 +20,8 @@ const baseConnection: Knex.MySql2ConnectionConfig = {
   charset: 'utf8mb4',
   timezone: 'Z',
   supportBigNumbers: true,
-  dateStrings: ['DATE'],
+  // mysql2 accepts a list of column types here; knex's typings only declare boolean.
+  dateStrings: ['DATE'] as unknown as boolean,
 };
 
 export const knexConfig: Knex.Config = {

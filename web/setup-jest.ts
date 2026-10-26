@@ -1,4 +1,5 @@
-import 'jest-preset-angular/setup-jest';
+// The Angular jest builder (@angular-builders/jest) already loads
+// jest-preset-angular/setup-jest before this file, so it is not imported here.
 
 /**
  * jsdom does not implement matchMedia, which the sidebar uses to collapse

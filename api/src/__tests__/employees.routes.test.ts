@@ -49,9 +49,7 @@ jest.mock('@config/knex', () => {
 });
 
 // Imported after the mock so the module graph picks up the fake knex.
-// eslint-disable-next-line import/first
 import { createApp } from '@/app';
-// eslint-disable-next-line import/first
 import { signAccessToken } from '@utils/jwt';
 
 const PREFIX = '/api/v1';

@@ -9,7 +9,7 @@
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module",
-    "project": ["./tsconfig.json"]
+    "project": ["./tsconfig.eslint.json"]
   },
   "plugins": ["@typescript-eslint"],
   "extends": [
@@ -28,7 +28,7 @@
   },
   "overrides": [
     {
-      "files": ["src/db/migrations/*.ts", "src/db/seeds/*.ts"],
+      "files": ["src/db/migrations/*.ts", "src/db/seeds/*.ts", "src/modules/*/*.repository.ts", "**/*.test.ts"],
       "rules": { "@typescript-eslint/explicit-function-return-type": "off" }
     }
   ],

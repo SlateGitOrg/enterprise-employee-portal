@@ -31,7 +31,7 @@ export const dashboardRepository = {
   },
 
   /** Headcount by department for the dashboard bar chart. */
-  headcountByDepartment() {
+  headcountByDepartment(): Promise<Array<{ id: number; code: string; name: string; headcount: number | string }>> {
     return db('departments as d')
       .select('d.id', 'd.code', 'd.name')
       .count({ headcount: 'e.id' })
@@ -40,7 +40,9 @@ export const dashboardRepository = {
       })
       .where('d.is_active', true)
       .groupBy('d.id', 'd.code', 'd.name')
-      .orderBy('headcount', 'desc');
+      .orderBy('headcount', 'desc') as unknown as Promise<
+      Array<{ id: number; code: string; name: string; headcount: number | string }>
+    >;
   },
 
   /** Approved absences starting within the next fortnight. */
@@ -64,7 +66,7 @@ export const dashboardRepository = {
   },
 
   /** Leave volume for the trailing six months, for the trend sparkline. */
-  leaveTrend() {
+  leaveTrend(): Promise<Array<{ month: string; requests: number | string; days: number | string | null }>> {
     return db('leave_requests')
       .select(db.raw("DATE_FORMAT(start_date, '%Y-%m') AS month"))
       .count({ requests: 'id' })
@@ -72,7 +74,9 @@ export const dashboardRepository = {
       .where('start_date', '>=', db.raw('DATE_SUB(CURDATE(), INTERVAL 6 MONTH)'))
       .whereIn('status', ['APPROVED', 'MANAGER_APPROVED', 'PENDING'])
       .groupByRaw("DATE_FORMAT(start_date, '%Y-%m')")
-      .orderBy('month', 'asc');
+      .orderBy('month', 'asc') as unknown as Promise<
+      Array<{ month: string; requests: number | string; days: number | string | null }>
+    >;
   },
 
   async pendingApprovalsFor(employeeId: number): Promise<number> {

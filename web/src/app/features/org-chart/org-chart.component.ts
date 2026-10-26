@@ -75,20 +75,30 @@ import type { OrgChartResponse } from '@core/models';
           <div class="py-16">
             <app-ui-spinner size="lg" label="Building the reporting tree…" />
           </div>
-        } @else if (chart()?.tree; as tree) {
+        } @else {
+         @if (chart(); as c) {
+           @if (c.tree; as tree) {
           <div class="overflow-x-auto py-2 scrollbar-slim">
             <app-org-node [node]="tree" (focused)="focus($event)" />
           </div>
           <p class="mt-4 border-t border-surface-border pt-3 text-xs text-slate-400">
-            Showing {{ chart()?.stats.nodesReturned }} nodes, depth limit
-            {{ chart()?.stats.depthLimit }}. Branches deeper than three levels start collapsed.
+            Showing {{ c.stats.nodesReturned }} nodes, depth limit
+            {{ c.stats.depthLimit }}. Branches deeper than three levels start collapsed.
           </p>
-        } @else {
+           } @else {
           <app-ui-empty-state
             icon="⑃"
             heading="No hierarchy to show"
             message="Nobody has a manager assigned yet, so there is no tree to build."
           />
+           }
+         } @else {
+          <app-ui-empty-state
+            icon="⑃"
+            heading="No hierarchy to show"
+            message="Nobody has a manager assigned yet, so there is no tree to build."
+          />
+         }
         }
       </app-ui-card>
     </div>
