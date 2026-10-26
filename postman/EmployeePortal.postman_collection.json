@@ -607,10 +607,10 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const data = pm.response.json().data;",
+                  "const payload = pm.response.json().data;",
                   "pm.test('returns the seeded engineering team', function () {",
-                  "  pm.expect(data).to.be.an('array').that.is.not.empty;",
-                  "  data.forEach(function (report) {",
+                  "  pm.expect(payload).to.be.an('array').that.is.not.empty;",
+                  "  payload.forEach(function (report) {",
                   "    pm.expect(report.managerId).to.eql(Number(pm.environment.get('managerEmployeeId')));",
                   "  });",
                   "});"
@@ -639,9 +639,9 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const data = pm.response.json().data;",
+                  "const payload = pm.response.json().data;",
                   "pm.test('annual leave is configured', function () {",
-                  "  const annual = data.find(function (type) { return type.code === 'ANNUAL'; });",
+                  "  const annual = payload.find(function (type) { return type.code === 'ANNUAL'; });",
                   "  pm.expect(annual, 'ANNUAL leave type').to.exist;",
                   "  pm.expect(Number(annual.default_annual_days)).to.be.above(0);",
                   "  pm.environment.set('annualLeaveTypeId', annual.id);",
@@ -666,8 +666,8 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const data = pm.response.json().data;",
-                  "const annual = data.find(function (b) { return b.code === 'ANNUAL'; });",
+                  "const payload = pm.response.json().data;",
+                  "const annual = payload.find(function (b) { return b.code === 'ANNUAL'; });",
                   "",
                   "pm.test('balance arithmetic holds', function () {",
                   "  pm.expect(annual).to.exist;",
@@ -846,15 +846,15 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const data = pm.response.json().data;",
+                  "const payload = pm.response.json().data;",
                   "const id = Number(pm.environment.get('leaveRequestId'));",
                   "",
                   "pm.test('the submitted request is listed', function () {",
-                  "  pm.expect(data.some(function (r) { return r.id === id; })).to.be.true;",
+                  "  pm.expect(payload.some(function (r) { return r.id === id; })).to.be.true;",
                   "});",
                   "",
                   "pm.test('the status filter is applied', function () {",
-                  "  data.forEach(function (r) { pm.expect(r.status).to.eql('PENDING'); });",
+                  "  payload.forEach(function (r) { pm.expect(r.status).to.eql('PENDING'); });",
                   "});"
                 ]
               }
@@ -943,11 +943,11 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const data = pm.response.json().data;",
+                  "const payload = pm.response.json().data;",
                   "const id = Number(pm.environment.get('leaveRequestId'));",
                   "",
                   "pm.test('the new request is waiting on this manager', function () {",
-                  "  const match = data.find(function (r) { return r.id === id; });",
+                  "  const match = payload.find(function (r) { return r.id === id; });",
                   "  pm.expect(match, 'request in the approval queue').to.exist;",
                   "  pm.expect(match.status).to.eql('PENDING');",
                   "});"
@@ -1194,15 +1194,15 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const data = pm.response.json().data;",
+                  "const payload = pm.response.json().data;",
                   "pm.test('seeded projects are returned', function () {",
-                  "  pm.expect(data).to.be.an('array').that.is.not.empty;",
-                  "  data.forEach(function (project) {",
+                  "  pm.expect(payload).to.be.an('array').that.is.not.empty;",
+                  "  payload.forEach(function (project) {",
                   "    pm.expect(project).to.include.all.keys('id', 'code', 'name', 'is_billable');",
                   "  });",
                   "});",
                   "",
-                  "pm.environment.set('projectId', data[0].id);"
+                  "pm.environment.set('projectId', payload[0].id);"
                 ]
               }
             }
@@ -1338,21 +1338,21 @@
                 "exec": [
                   "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
                   "",
-                  "const data = pm.response.json().data;",
+                  "const payload = pm.response.json().data;",
                   "pm.test('pinned items come first', function () {",
                   "  const pinnedIndexes = data",
                   "    .map(function (a, index) { return a.isPinned ? index : -1; })",
                   "    .filter(function (index) { return index >= 0; });",
                   "  pinnedIndexes.forEach(function (index) {",
-                  "    pm.expect(index).to.be.below(data.filter(function (a) { return a.isPinned; }).length);",
+                  "    pm.expect(index).to.be.below(payload.filter(function (a) { return a.isPinned; }).length);",
                   "  });",
                   "});",
                   "",
                   "pm.test('an employee never sees a manager-only post', function () {",
-                  "  data.forEach(function (a) { pm.expect(a.audience).to.not.eql('MANAGERS'); });",
+                  "  payload.forEach(function (a) { pm.expect(a.audience).to.not.eql('MANAGERS'); });",
                   "});",
                   "",
-                  "if (data.length) { pm.environment.set('announcementId', data[0].id); }"
+                  "if (payload.length) { pm.environment.set('announcementId', payload[0].id); }"
                 ]
               }
             }
