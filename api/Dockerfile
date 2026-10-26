@@ -22,15 +22,18 @@ FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY package.json package-lock.json tsconfig.json knexfile.ts ./
+COPY package.json package-lock.json tsconfig.json tsconfig.build.json knexfile.ts ./
 COPY src ./src
 
-RUN npm run build \
-    # Prune to production dependencies in place; the pruned tree is copied
-    # into the runtime stage as-is.
-    && npm prune --omit=dev
+RUN npm run build
 
-# --- Stage 3: runtime ------------------------------------------------------
+# --- Stage 3: production dependencies --------------------------------------
+# Pruned in its own stage so the build stage keeps the dev tooling (ts-node,
+# used by the one-shot migrate service) while the runtime image ships without it.
+FROM deps AS prod-deps
+RUN npm prune --omit=dev
+
+# --- Stage 4: runtime ------------------------------------------------------
 FROM node:22-alpine AS runtime
 WORKDIR /app
 
@@ -46,7 +49,7 @@ ENV NODE_ENV=production \
     PORT=4000 \
     NODE_OPTIONS=--enable-source-maps
 
-COPY --from=build --chown=portal:portal /app/node_modules ./node_modules
+COPY --from=prod-deps --chown=portal:portal /app/node_modules ./node_modules
 COPY --from=build --chown=portal:portal /app/dist ./dist
 COPY --from=build --chown=portal:portal /app/package.json ./package.json
 
