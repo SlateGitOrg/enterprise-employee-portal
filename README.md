@@ -12,6 +12,7 @@
 [![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?style=for-the-badge&logo=jenkins&logoColor=white)](https://www.jenkins.io)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com)
 [![Postman](https://img.shields.io/badge/Postman-Newman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://www.postman.com)
+[![CI](https://github.com/SlateGitOrg/enterprise-employee-portal/actions/workflows/ci.yml/badge.svg)](https://github.com/SlateGitOrg/enterprise-employee-portal/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 </div>
@@ -1131,13 +1132,15 @@ failed, ref 8f1c9a2e" hands you the exact log stream.
 
 ---
 
-## 👤 Maintainers
+## ⚠️ Limitations
 
-Built and maintained by **SlateGit Engineering**.
+- Refresh tokens are stored client-side (see the roadmap item to move them to an `httpOnly` cookie).
+- Rate limiting and org-chart caching are in-process, so they are per-replica.
+- Leave working-day counts do not yet account for public holidays.
+- Notifications (email/Slack) are not implemented.
 
-[![GitHub](https://img.shields.io/badge/GitHub-SlateGitOrg-181717?style=flat-square&logo=github)](https://github.com/SlateGitOrg)
+---
 
-Issues and pull requests are welcome via
-[GitHub Issues](https://github.com/SlateGitOrg/enterprise-employee-portal/issues).
+## License
 
-Licensed under the [MIT License](LICENSE) · © 2026 SlateGit
+MIT — see [LICENSE](LICENSE).
